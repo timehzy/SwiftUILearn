@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PokemonInfoRow: View {
     let model: PokemonViewModel
-    @State var expended: Bool
+    var expended: Bool = false
     
     var body: some View {
         VStack {
@@ -70,22 +70,15 @@ struct PokemonInfoRow: View {
                 
         })
         .padding(.horizontal)
-        .onTapGesture {
-            withAnimation(
-                .spring(response: 0.55, dampingFraction: 0.425, blendDuration: 0)
-            ) {
-                self.expended.toggle()
-            }
-        }
     }
 }
 
 struct PokemonInfoRow_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            PokemonInfoRow(model: .sample(id: 1), expended: false)
-            PokemonInfoRow(model: .sample(id: 21), expended: true)
-            PokemonInfoRow(model: .sample(id: 25), expended: false)
+            PokemonInfoRow(model: .sample(id: 1))
+            PokemonInfoRow(model: .sample(id: 21))
+            PokemonInfoRow(model: .sample(id: 25))
         }
     }
 }
