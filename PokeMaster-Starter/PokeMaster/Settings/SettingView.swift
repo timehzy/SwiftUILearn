@@ -10,32 +10,38 @@ import SwiftUI
 import Combine
 
 struct SettingView: View {
+    @EnvironmentObject var store: Store
     
-    @ObservedObject var settings = Settings()
+    // 会由用户通过UI修改的值需要binding
+    var settingsBinding: Binding<AppState.Settings> {
+        $store.appState.settings
+    }
+    // 不会由用户修改的值无需binding
+    var settings: AppState.Settings {
+        store.appState.settings
+    }
     
     var body: some View {
-        NavigationView {
-            Form {
-                accountSection
-                optionsSection
-                actinoSection
-            }
-            .navigationTitle("设置")
+        Form {
+            accountSection
+            optionsSection
+            actinoSection
         }
+        .navigationTitle("设置")
     }
     
     var accountSection: some View {
         Section("账户") {
-            Picker(selection: $settings.accountBehavior) {
-                ForEach(Settings.AccountBehavior.allCases, id: \.self) {
+            Picker(selection: settingsBinding.accountBehavior) {
+                ForEach(AppState.Settings.AccountBehavior.allCases, id: \.self) {
                     Text($0.text)
                 }
             } label: {}
             .pickerStyle(.segmented)
-            TextField("电子邮箱", text: $settings.email)
-            SecureField("密码", text: $settings.password)
+            TextField("电子邮箱", text: settingsBinding.email)
+            SecureField("密码", text: settingsBinding.password)
             if settings.accountBehavior == .register {
-                SecureField("确认密码", text: $settings.verifyPassword)
+                SecureField("确认密码", text: settingsBinding.verifyPassword)
             }
             Button(settings.accountBehavior.text) {
                 print("denglu")
@@ -45,15 +51,14 @@ struct SettingView: View {
     
     var optionsSection: some View {
         Section("选项") {
-            Toggle("显示英文名", isOn: $settings.showEnglishName)
-            Picker(selection: $settings.sorting) {
-                ForEach(Settings.Sorting.allCases, id: \.self) {
+            Toggle("显示英文名", isOn: settingsBinding.showEnglishName)
+            Picker("排序方式", selection: settingsBinding.sorting) {
+                ForEach(AppState.Settings.Sorting.allCases, id: \.self) {
                     Text($0.text)
                 }
-            } label: {
-                Text("排序方式")
             }
-            Toggle("只显示收藏", isOn: $settings.showFavoriteOnly)
+            
+            Toggle("只显示收藏", isOn: settingsBinding.showFavoriteOnly)
         }
     }
     
@@ -70,6 +75,6 @@ struct SettingView: View {
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView()
+        SettingView().environmentObject(Store())
     }
 }

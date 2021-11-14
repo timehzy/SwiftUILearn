@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public func check<P: Publisher>(_ title: String, publisher: @autoclosure () -> P) -> AnyCancellable {
+public func check<P: Publisher>(_ title: String, _ publisher: @autoclosure () -> P) -> AnyCancellable {
     print("----- \(title) -----")
     defer { print("") }
     return publisher()
@@ -61,7 +61,6 @@ public struct TimerPublisher<Value>: Publisher {
     }
 
     public func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
-
         let data = items.sorted { $0.duration < $1.duration }
         for index in data.indices {
             let item = items[index]
