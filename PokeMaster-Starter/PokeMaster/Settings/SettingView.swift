@@ -27,24 +27,41 @@ struct SettingView: View {
             optionsSection
             actinoSection
         }
+        .alert(settings.loginError!.localizedDescription, isPresented: settingsBinding.isLoginError) {
+            Button("OK") {
+                
+            }
+        }
         .navigationTitle("设置")
+
     }
     
     var accountSection: some View {
         Section("账户") {
-            Picker(selection: settingsBinding.accountBehavior) {
-                ForEach(AppState.Settings.AccountBehavior.allCases, id: \.self) {
-                    Text($0.text)
+            if let user = settings.loginUser {
+                Text(user.email)
+                Button("登出") {
+                    store.dispatch(.logout)
                 }
-            } label: {}
-            .pickerStyle(.segmented)
-            TextField("电子邮箱", text: settingsBinding.email)
-            SecureField("密码", text: settingsBinding.password)
-            if settings.accountBehavior == .register {
-                SecureField("确认密码", text: settingsBinding.verifyPassword)
-            }
-            Button(settings.accountBehavior.text) {
-                print("denglu")
+            } else {
+                Picker(selection: settingsBinding.accountBehavior) {
+                    ForEach(AppState.Settings.AccountBehavior.allCases, id: \.self) {
+                        Text($0.text)
+                    }
+                } label: {}
+                .pickerStyle(.segmented)
+                TextField("电子邮箱", text: settingsBinding.email)
+                SecureField("密码", text: settingsBinding.password)
+                if settings.accountBehavior == .register {
+                    SecureField("确认密码", text: settingsBinding.verifyPassword)
+                }
+                if settings.loginRequesting {
+                    Text("登录中……")
+                } else {
+                    Button(settings.accountBehavior.text) {
+                        store.dispatch(.login(email: settings.email, password: settings.password))
+                    }                    
+                }
             }
         }
     }

@@ -21,6 +21,7 @@ extension AppState {
             case register, login
         }
         
+        var loginUser: User?
         var accountBehavior = AccountBehavior.login
         var email = ""
         var password = ""
@@ -28,6 +29,10 @@ extension AppState {
         var showEnglishName = true
         var sorting = Sorting.id
         var showFavoriteOnly = false
+        
+        var loginRequesting = false
+        var loginError: AppError?
+        var isLoginError: Bool = false
     }
 }
 
