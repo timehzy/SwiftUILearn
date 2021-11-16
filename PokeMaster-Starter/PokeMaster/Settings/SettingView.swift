@@ -27,11 +27,7 @@ struct SettingView: View {
             optionsSection
             actinoSection
         }
-        .alert(settings.loginError!.localizedDescription, isPresented: settingsBinding.isLoginError) {
-            Button("OK") {
-                
-            }
-        }
+        .alert(settings.loginError?.localizedDescription ?? "登录失败", isPresented: settingsBinding.isLoginError, actions: {})
         .navigationTitle("设置")
 
     }

@@ -44,8 +44,10 @@ class Store: ObservableObject {
                 appState.settings.password = ""
                 appState.settings.verifyPassword = ""
                 appState.settings.loginUser = user
+                appState.settings.isLoginError = false
             case .failure(let error):
                 appState.settings.loginError = error
+                appState.settings.isLoginError = true
             }
         }
         return (appState, appCommand)

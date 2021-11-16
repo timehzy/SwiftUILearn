@@ -21,10 +21,11 @@ extension AppState {
             case register, login
         }
         
+        @FileStorage(directory: .documentDirectory, fileName: "user")
         var loginUser: User?
-        var accountBehavior = AccountBehavior.login
         var email = ""
         var password = ""
+        var accountBehavior = AccountBehavior.login
         var verifyPassword = ""
         var showEnglishName = true
         var sorting = Sorting.id
