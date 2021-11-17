@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 struct AppState {
     var settings = Settings()
@@ -23,17 +24,48 @@ extension AppState {
         
         @FileStorage(directory: .documentDirectory, fileName: "user")
         var loginUser: User?
-        var email = ""
-        var password = ""
-        var accountBehavior = AccountBehavior.login
-        var verifyPassword = ""
+
         var showEnglishName = true
-        var sorting = Sorting.id
+        @UserDefault(key: "sorting", defalutValue: Sorting.id)
+        var sorting: Sorting
         var showFavoriteOnly = false
-        
-        var loginRequesting = false
+        @UserDefault(key: "loginRequesting", defalutValue: false)
+        var loginRequesting: Bool
         var loginError: AppError?
         var isLoginError: Bool = false
+        
+        class AccountChecker {
+            @Published var email = ""
+            @Published var password = ""
+            @Published var verifyPassword = ""
+            @Published var accountBehavior = AccountBehavior.login
+            
+            var isEmailValid: AnyPublisher<Bool, Never> {
+                let remoteVerify = $email
+                    .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+                    .removeDuplicates()
+                    .flatMap { email -> AnyPublisher<Bool, Never> in
+                        let validEmail = email.isValidEmailAddress
+                        let canSkip = self.accountBehavior == .login
+                        switch (validEmail, canSkip) {
+                        case (false, _):
+                            return Just(false).eraseToAnyPublisher()
+                        case (true, false):
+                            return EmailCheckingRequest(email: self.email).publisher.eraseToAnyPublisher()
+                        case (true ,true):
+                            return Just(true).eraseToAnyPublisher()
+                        }
+                    }
+                let emailLocalValid = $email.map{ $0.isValidEmailAddress }
+                let canSkipRemoteVerify = $accountBehavior.map{ $0 == .login }
+                return Publishers.CombineLatest3(remoteVerify, emailLocalValid, canSkipRemoteVerify)
+                    .map{ $0 && ($1 || $2) }
+                    .eraseToAnyPublisher()
+            }
+        }
+        
+        var checker = AccountChecker()
+        var isEmailValid = false
     }
 }
 

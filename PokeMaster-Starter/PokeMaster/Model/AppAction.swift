@@ -9,6 +9,8 @@
 import Foundation
 
 enum AppAction {
-    case login(email: String, password: String), logout
+    case login(email: String, password: String)
+    case logout
     case accountBehaviorDone(result: Result<User, AppError>)
+    case emailValid(valid: Bool)
 }

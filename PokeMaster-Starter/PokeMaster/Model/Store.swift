@@ -11,6 +11,16 @@ import Combine
 
 class Store: ObservableObject {
     @Published var appState = AppState()
+    var disposeBag = [AnyCancellable]()
+    init() {
+        setupObservers()
+    }
+    
+    func setupObservers() {
+        appState.settings.checker.isEmailValid.sink { isValid in
+            self.dispatch(.emailValid(valid: isValid))
+        }.store(in: &disposeBag)
+    }
     
     func dispatch(_ action: AppAction) {
 #if DEBUG
@@ -36,19 +46,21 @@ class Store: ObservableObject {
             appCommand = LoginAppCommand(email: email, password: password)
         case .logout:
             appState.settings.loginUser = nil
-            appState.settings.email = ""
+            appState.settings.checker.email = ""
         case .accountBehaviorDone(result: let result):
             appState.settings.loginRequesting = false
             switch result {
             case .success(let user):
-                appState.settings.password = ""
-                appState.settings.verifyPassword = ""
+                appState.settings.checker.password = ""
+                appState.settings.checker.verifyPassword = ""
                 appState.settings.loginUser = user
                 appState.settings.isLoginError = false
             case .failure(let error):
                 appState.settings.loginError = error
                 appState.settings.isLoginError = true
             }
+        case .emailValid(valid: let valid):
+            appState.settings.isEmailValid = valid
         }
         return (appState, appCommand)
     }

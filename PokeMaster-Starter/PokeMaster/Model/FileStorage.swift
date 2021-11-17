@@ -38,23 +38,19 @@ struct FileStorage<T: Codable> {
 
 @propertyWrapper
 struct UserDefault<T> {
-    var value: T?
+    var value: T
     var key: String
     
-    init(key: String) {
+    init(key: String, defalutValue: T) {
         self.key = key
-        if T.self == String.self {
-            value = UserDefaults.standard.string(forKey: key) as! T?
-        } else if T.self == Int.self {
-            value = UserDefaults.standard.integer(forKey: key) as! T?
-        } else if T.self == Bool.self {
-            value = UserDefaults.standard.bool(forKey: key) as! T?
+        if let v = UserDefaults.standard.object(forKey: key) as? T {
+            value = v
         } else {
-            value = UserDefaults.standard.object(forKey: key) as! T?
+            value = defalutValue
         }
     }
     
-    var wrappedValue: T? {
+    var wrappedValue: T {
         set {
             value = newValue
             UserDefaults.standard.set(value, forKey: key)

@@ -40,22 +40,23 @@ struct SettingView: View {
                     store.dispatch(.logout)
                 }
             } else {
-                Picker(selection: settingsBinding.accountBehavior) {
+                Picker(selection: settingsBinding.checker.accountBehavior) {
                     ForEach(AppState.Settings.AccountBehavior.allCases, id: \.self) {
                         Text($0.text)
                     }
                 } label: {}
                 .pickerStyle(.segmented)
-                TextField("电子邮箱", text: settingsBinding.email)
-                SecureField("密码", text: settingsBinding.password)
-                if settings.accountBehavior == .register {
-                    SecureField("确认密码", text: settingsBinding.verifyPassword)
+                TextField("电子邮箱", text: settingsBinding.checker.email)
+                    .foregroundColor(settings.isEmailValid ? .black : .red)
+                SecureField("密码", text: settingsBinding.checker.password)
+                if settings.checker.accountBehavior == .register {
+                    SecureField("确认密码", text: settingsBinding.checker.verifyPassword)
                 }
                 if settings.loginRequesting {
                     Text("登录中……")
                 } else {
-                    Button(settings.accountBehavior.text) {
-                        store.dispatch(.login(email: settings.email, password: settings.password))
+                    Button(settings.checker.accountBehavior.text) {
+                        store.dispatch(.login(email: settings.checker.email, password: settings.checker.password))
                     }                    
                 }
             }

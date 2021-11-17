@@ -13,6 +13,7 @@
 		409449402741544500E1F506 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094493F2741544500E1F506 /* Store.swift */; };
 		409449422741544F00E1F506 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409449412741544F00E1F506 /* AppState.swift */; };
 		409449442743FBE000E1F506 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409449432743FBE000E1F506 /* FileStorage.swift */; };
+		40944946274556DF00E1F506 /* EmailCheckingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40944945274556DF00E1F506 /* EmailCheckingRequest.swift */; };
 		40F167C9273AB5A900EF3BC9 /* PokemonInfoPanelAbilityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F167C8273AB5A900EF3BC9 /* PokemonInfoPanelAbilityList.swift */; };
 		40F167CE273AC26500EF3BC9 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F167CD273AC26500EF3BC9 /* SettingView.swift */; };
 		7B4E10D127421EDA00ECD4FE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4E10D027421EDA00ECD4FE /* User.swift */; };
@@ -109,6 +110,7 @@
 		4094493F2741544500E1F506 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		409449412741544F00E1F506 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		409449432743FBE000E1F506 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
+		40944945274556DF00E1F506 /* EmailCheckingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCheckingRequest.swift; sourceTree = "<group>"; };
 		40F167C8273AB5A900EF3BC9 /* PokemonInfoPanelAbilityList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonInfoPanelAbilityList.swift; sourceTree = "<group>"; };
 		40F167CD273AC26500EF3BC9 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		4B9EAF6823162D9900B72082 /* PokeMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokeMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -387,6 +389,7 @@
 				7B4E10D027421EDA00ECD4FE /* User.swift */,
 				7B4E10D2274220C900ECD4FE /* AppAction.swift */,
 				7B4E10D4274227BA00ECD4FE /* LoginRequest.swift */,
+				40944945274556DF00E1F506 /* EmailCheckingRequest.swift */,
 				7B4E10D627422A8700ECD4FE /* AppError.swift */,
 				7B4E10D827422B9C00ECD4FE /* AppCommand.swift */,
 				409449432743FBE000E1F506 /* FileStorage.swift */,
@@ -560,6 +563,7 @@
 				D1320B1F23178614006F02A6 /* AppDelegate.swift in Sources */,
 				7B4E10D3274220C900ECD4FE /* AppAction.swift in Sources */,
 				D1320B1C23178614006F02A6 /* Ability.swift in Sources */,
+				40944946274556DF00E1F506 /* EmailCheckingRequest.swift in Sources */,
 				D1320B1B23178614006F02A6 /* Language.swift in Sources */,
 				7B4E10D727422A8700ECD4FE /* AppError.swift in Sources */,
 				409449442743FBE000E1F506 /* FileStorage.swift in Sources */,
