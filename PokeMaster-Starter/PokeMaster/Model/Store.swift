@@ -12,6 +12,7 @@ import Combine
 class Store: ObservableObject {
     @Published var appState = AppState()
     var disposeBag = [AnyCancellable]()
+    
     init() {
         setupObservers()
     }
@@ -61,6 +62,18 @@ class Store: ObservableObject {
             }
         case .emailValid(valid: let valid):
             appState.settings.isEmailValid = valid
+        case .loadPokemons:
+            guard !appState.pokemonList.loadingPokemons else { break }
+            appState.pokemonList.loadingPokemons = true
+            appCommand = LoadPokemonsCommand()
+        case .loadPokemonsDone(result: let result):
+            appState.pokemonList.loadingPokemons = false
+            switch result {
+            case .success(let models):
+                appState.pokemonList.pokemons = Dictionary(uniqueKeysWithValues: models.map{ ($0.id, $0) })
+            case .failure(let error):
+                print(error)
+            }
         }
         return (appState, appCommand)
     }

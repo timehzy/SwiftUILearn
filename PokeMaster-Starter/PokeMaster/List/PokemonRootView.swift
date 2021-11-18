@@ -10,17 +10,25 @@ import SwiftUI
 
 struct PokemonRootView: View {
     @State var searchText: String = ""
+    @EnvironmentObject var store: Store
 
     var body: some View {
-        NavigationView {
-            PokemonList()
+        if store.appState.pokemonList.pokemons == nil {
+            Text("Loading")
+                .onAppear {
+                    store.dispatch(.loadPokemons)
+                }
+        } else {
+            NavigationView {
+                PokemonList()
+            }
+            .searchable(text: $searchText, prompt: "")
         }
-        .searchable(text: $searchText, prompt: "")
     }
 }
 
 struct PokemonRootView_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonRootView()
+        PokemonRootView().environmentObject(Store())
     }
 }

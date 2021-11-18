@@ -218,9 +218,9 @@
 		40F167CA273AC06700EF3BC9 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				7BD095E22738E62A0001F936 /* PokemonInfoRow.swift */,
-				7BD095E62738EF1E0001F936 /* PokemonList.swift */,
 				4094493B27414F0200E1F506 /* PokemonRootView.swift */,
+				7BD095E62738EF1E0001F936 /* PokemonList.swift */,
+				7BD095E22738E62A0001F936 /* PokemonInfoRow.swift */,
 				7B54E840273A3E4E00D9063A /* PokemonInfoPanel.swift */,
 				40F167C8273AB5A900EF3BC9 /* PokemonInfoPanelAbilityList.swift */,
 				7BD095E42738EA130001F936 /* ToolButtonModifier.swift */,

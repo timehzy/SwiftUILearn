@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct PokemonList: View {
-    
+    @EnvironmentObject var store: Store
     @State var expandingIndex: Int?
+    
     var body: some View {
-        List(PokemonViewModel.all) { pokemon in
+        List(store.appState.pokemonList.allPokemonsByID) { pokemon in
             PokemonInfoRow(model: pokemon, expended: self.expandingIndex == pokemon.id)
                 .listRowSeparator(.hidden)
                 .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
