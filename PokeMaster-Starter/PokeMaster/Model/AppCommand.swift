@@ -43,3 +43,20 @@ struct LoginAppCommand: AppCommand {
             .seal(in: token)
     }
 }
+
+struct LoadPokemonsCommand: AppCommand {
+    
+    func execute(in store: Store) {
+        let token = SubscriptionToken()
+        LoadPokemonRequest.all
+            .sink {
+                if case .failure(let error) = $0 {
+                    store.dispatch(.loadPokemonsDone(result: .failure(error)))
+                }
+                token.unseal()
+            } receiveValue: {
+                store.dispatch(.loadPokemonsDone(result: .success($0)))
+            }
+            .seal(in: token)
+    }
+}
