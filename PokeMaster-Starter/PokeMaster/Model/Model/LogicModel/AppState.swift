@@ -54,6 +54,18 @@ extension AppState {
             @Published var verifyPassword = ""
             @Published var accountBehavior = AccountBehavior.login
             
+            var isRegisterValid: AnyPublisher<Bool, Never> {
+                Publishers.CombineLatest(isPasswordVerified, isEmailValid)
+                    .map { $0.0 && $0.1 }
+                    .eraseToAnyPublisher()
+            }
+            
+            var isPasswordVerified: AnyPublisher<Bool, Never> {
+                Publishers.CombineLatest($password, $verifyPassword)
+                    .map{ self.accountBehavior != .register || ($0.count > 0 && $0 == $1 ) }
+                    .eraseToAnyPublisher()
+            }
+            
             var isEmailValid: AnyPublisher<Bool, Never> {
                 let remoteVerify = $email
                     .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
@@ -80,6 +92,9 @@ extension AppState {
         
         var checker = AccountChecker()
         var isEmailValid = false
+        var isRegisterValid = false
+        var isPasswordVerified = false
+
     }
 }
 

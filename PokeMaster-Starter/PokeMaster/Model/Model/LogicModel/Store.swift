@@ -18,9 +18,15 @@ class Store: ObservableObject {
     }
     
     func setupObservers() {
-        appState.settings.checker.isEmailValid.sink { isValid in
-            self.dispatch(.emailValid(valid: isValid))
-        }.store(in: &disposeBag)
+        appState.settings.checker.isEmailValid
+            .sink { self.dispatch(.emailValid(valid: $0)) }
+            .store(in: &disposeBag)
+        appState.settings.checker.isPasswordVerified
+            .sink { self.dispatch(.passwordVerify(verified: $0)) }
+            .store(in: &disposeBag)
+        appState.settings.checker.isRegisterValid
+            .sink { self.dispatch(.registerValid(valid: $0)) }
+            .store(in: &disposeBag)
     }
     
     func dispatch(_ action: AppAction) {
@@ -74,6 +80,10 @@ class Store: ObservableObject {
             case .failure(let error):
                 print(error)
             }
+        case .passwordVerify(verified: let verified):
+            appState.settings.isPasswordVerified = verified
+        case .registerValid(valid: let valid):
+            appState.settings.isRegisterValid = valid
         }
         return (appState, appCommand)
     }

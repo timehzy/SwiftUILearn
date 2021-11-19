@@ -51,13 +51,14 @@ struct SettingView: View {
                 SecureField("密码", text: settingsBinding.checker.password)
                 if settings.checker.accountBehavior == .register {
                     SecureField("确认密码", text: settingsBinding.checker.verifyPassword)
+                        .foregroundColor(settings.isPasswordVerified ? .black : .red)
                 }
                 if settings.loginRequesting {
                     Text("登录中……")
                 } else {
                     Button(settings.checker.accountBehavior.text) {
                         store.dispatch(.login(email: settings.checker.email, password: settings.checker.password))
-                    }                    
+                    }
                 }
             }
         }

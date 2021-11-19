@@ -13,6 +13,8 @@ enum AppAction {
     case logout
     case accountBehaviorDone(result: Result<User, AppError>)
     case emailValid(valid: Bool)
+    case passwordVerify(verified: Bool)
+    case registerValid(valid: Bool)
     case loadPokemons
     case loadPokemonsDone(result: Result<[PokemonViewModel], AppError>)
 }

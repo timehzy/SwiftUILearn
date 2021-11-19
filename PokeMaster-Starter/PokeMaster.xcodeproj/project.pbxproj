@@ -265,6 +265,31 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		7BA546EE2747BD0900874D6B /* LogicModel */ = {
+			isa = PBXGroup;
+			children = (
+				7B0BAE80274619C500BC5D94 /* Request */,
+				4094493F2741544500E1F506 /* Store.swift */,
+				409449412741544F00E1F506 /* AppState.swift */,
+				7B4E10D027421EDA00ECD4FE /* User.swift */,
+				7B4E10D2274220C900ECD4FE /* AppAction.swift */,
+				7B4E10D827422B9C00ECD4FE /* AppCommand.swift */,
+				409449432743FBE000E1F506 /* FileStorage.swift */,
+				7B4E10D627422A8700ECD4FE /* AppError.swift */,
+			);
+			path = LogicModel;
+			sourceTree = "<group>";
+		};
+		7BA546EF2747BD2600874D6B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D1320ACC23178614006F02A6 /* DataModel */,
+				D1320AC923178614006F02A6 /* ViewModel */,
+				7BA546EE2747BD0900874D6B /* LogicModel */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D1320A7C23178614006F02A6 /* PokeMaster */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,16 +421,7 @@
 		D1320AC823178614006F02A6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D1320AC923178614006F02A6 /* ViewModel */,
-				D1320ACC23178614006F02A6 /* DataModel */,
-				4094493F2741544500E1F506 /* Store.swift */,
-				409449412741544F00E1F506 /* AppState.swift */,
-				7B4E10D027421EDA00ECD4FE /* User.swift */,
-				7B4E10D2274220C900ECD4FE /* AppAction.swift */,
-				7B0BAE80274619C500BC5D94 /* Request */,
-				7B4E10D627422A8700ECD4FE /* AppError.swift */,
-				7B4E10D827422B9C00ECD4FE /* AppCommand.swift */,
-				409449432743FBE000E1F506 /* FileStorage.swift */,
+				7BA546EF2747BD2600874D6B /* Model */,
 			);
 			path = Model;
 			sourceTree = "<group>";
